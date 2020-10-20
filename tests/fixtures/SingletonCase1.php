@@ -26,35 +26,26 @@
 
 declare(strict_types=1);
 
-namespace Tests\Enjoys\Traits;
-
-require_once __DIR__.'/fixtures/SingletonCase1.php';
-
-use PHPUnit\Framework\TestCase;
+require_once __DIR__.'/../../vendor/autoload.php';
 
 /**
- * Description of SingletonTest
+ * Description of SingletonCase1
  *
  * @author deadl
  */
-class SingletonTest extends TestCase
+class SingletonCase1
 {
-    public function test_singleton()
-    {
-        $singleton = \SingletonCase1::getInstance();
-        $singleton->setParam(12);
-        $singleton2 = \SingletonCase1::getInstance();
-        $this->assertEquals(12, $singleton2->getParam());
-        $singleton->setParam(80);
-        $this->assertEquals(80, $singleton2->getParam());
-    }
-    public function test_singleton2()
-    {
-        $singleton2 = \SingletonCase1::getInstance();
-        $this->assertEquals(80, $singleton2->getParam());
-    }
+    use \Enjoys\Traits\Singleton;
     
-    public function test_clone(){
-        
+    private $param; 
+    
+  
+    public function setParam($param)
+    {
+        $this->param = $param;
+    }
+    public function getParam()
+    {
+        return $this->param;
     }
 }

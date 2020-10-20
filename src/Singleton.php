@@ -42,7 +42,7 @@ trait Singleton
     /**
      * Disabled __construct
      */
-    protected function __construct()
+    private function __construct()
     {
         static::setInstance($this);
     }
@@ -83,13 +83,13 @@ trait Singleton
         return;
     }
 
-    final private function __wakeup()
+    final public function __wakeup()
     {
-        //Disabled
+        throw new \Exception('You can not deserialize a singleton.');
     }
 
-    final private function __clone()
+    final public function __clone()
     {
-        //Disabled
+        throw new \Exception('You can not clone a singleton.');
     }
 }
