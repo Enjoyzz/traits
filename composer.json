@@ -1,6 +1,7 @@
 {
-    "name": "enjoys/templater",
-    "description": "PHP Templater.",
+    "name": "enjoys/traits",
+    "description": "PHP Traits",
+    "license": "MIT",
     "authors": [
         {
             "name": "Enjoys",
