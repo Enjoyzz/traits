@@ -1,6 +1,7 @@
 {
     "name": "enjoys/traits",
     "description": "PHP Traits",
+    "license": "MIT",
     "authors": [
         {
             "name": "Enjoys",
