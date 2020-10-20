@@ -47,12 +47,7 @@ trait Options
      */
     public function setOption(string $key, $value): self
     {
-        $method = 'set' . \ucfirst($key);
-        if (method_exists($this, $method)) {
-            $this->$method($value);
-        } else {
-            $this->options[$key] = $value;
-        }
+        $this->options[$key] = $value;
         return $this;
     }
 
@@ -64,10 +59,6 @@ trait Options
      */
     public function getOption(string $key, $defaults = null)
     {
-        $method = 'get' . \ucfirst($key);
-        if (method_exists($this, $method)) {
-            return $this->$method();
-        }
         if (isset($this->options[$key])) {
             return $this->options[$key];
         }
