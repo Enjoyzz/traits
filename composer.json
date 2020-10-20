@@ -1,6 +1,6 @@
 {
-    "name": "enjoys/templater",
-    "description": "PHP Templater.",
+    "name": "enjoys/traits",
+    "description": "PHP Traits",
     "authors": [
         {
             "name": "Enjoys",
