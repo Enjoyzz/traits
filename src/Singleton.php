@@ -27,72 +27,69 @@
 namespace Enjoys\Traits;
 
 /**
- *
+ * Singleton
+ * 
  * @author Enjoys
  */
-trait Options
+trait Singleton
 {
 
     /**
-     *
-     * @var array
+     * @var self
      */
-    protected $options = [];
+    protected static $instance;
+
+    /**
+     * Disabled __construct
+     */
+    protected function __construct()
+    {
+        static::setInstance($this);
+    }
 
     /**
      * 
-     * @param string $key
-     * @param mixed $value
-     * @return \self
+     * @param static $instance
+     * @return object
+     * @throws \Exception
      */
-    public function setOption(string $key, $value): self
+    final static public function setInstance($instance)
     {
-        $method = 'set' . \ucfirst($key);
-        if (method_exists($this, $method)) {
-            $this->$method($value);
+        if ($instance instanceof static) {
+            static::$instance = $instance;
         } else {
-            $this->options[$key] = $value;
+            throw new \Exception(sprintf('First parameter for method `%s` should be instance of `%s`', __METHOD__, __CLASS__));
         }
-        return $this;
+        return static::$instance;
     }
 
     /**
-     * 
-     * @param string $key
-     * @param type $defaults
-     * @return mixed
+     * Получает экземпляр класса, если его нет - создает
+     * @return object
      */
-    public function getOption(string $key, $defaults = null)
+    final static public function getInstance()
     {
-        $method = 'get' . \ucfirst($key);
-        if (method_exists($this, $method)) {
-            return $this->$method();
-        }
-        if (isset($this->options[$key])) {
-            return $this->options[$key];
-        }
-        return $defaults;
+        return static::$instance ?? new static;
     }
 
     /**
-     * 
-     * @param array $options
-     * @return \self
+     * Закрывает существующий экземпляр класса
+     *
+     * @return void
      */
-    public function setOptions(array $options = []): self
+    public static function closeInstance(): void
     {
-        foreach ($options as $key => $value) {
-            $this->setOption((string) $key, $value);
-        }
-        return $this;
+        static::$instance = null;
+        return;
     }
 
-    /**
-     * 
-     * @return array
-     */
-    public function getOptions(): array
+    final private function __wakeup()
     {
-        return $this->options;
+        //Disabled
+    }
+
+    final private function __clone()
+    {
+        //Disabled
     }
 }
