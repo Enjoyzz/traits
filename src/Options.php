@@ -40,7 +40,7 @@ trait Options
     protected $options = [];
 
     /**
-     * 
+     *
      * @param string $key
      * @param mixed $value
      * @return \self
@@ -52,7 +52,7 @@ trait Options
     }
 
     /**
-     * 
+     *
      * @param string $key
      * @param type $defaults
      * @return mixed
@@ -66,7 +66,7 @@ trait Options
     }
 
     /**
-     * 
+     *
      * @param array $options
      * @return \self
      */
@@ -79,7 +79,7 @@ trait Options
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public function getOptions(): array

@@ -28,7 +28,7 @@ declare(strict_types=1);
 
 namespace Tests\Enjoys\Traits;
 
-require_once __DIR__.'/fixtures/SingletonCase1.php';
+require_once __DIR__ . '/fixtures/SingletonCase1.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -39,22 +39,46 @@ use PHPUnit\Framework\TestCase;
  */
 class SingletonTest extends TestCase
 {
+
     public function test_singleton()
     {
-        $singleton = \SingletonCase1::getInstance();
-        $singleton->setParam(12);
-        $singleton2 = \SingletonCase1::getInstance();
-        $this->assertEquals(12, $singleton2->getParam());
-        $singleton->setParam(80);
-        $this->assertEquals(80, $singleton2->getParam());
+        $s1 = \SingletonCase1::getInstance();
+        $s2 = \SingletonCase1::getInstance();
+        $s2->setParam(12);
+        $this->assertEquals(12, $s1->getParam());
+        $s1->setParam(80);
+        $this->assertEquals(80, $s2->getParam());
     }
+
     public function test_singleton2()
     {
-        $singleton2 = \SingletonCase1::getInstance();
-        $this->assertEquals(80, $singleton2->getParam());
+        $s2 = \SingletonCase1::getInstance();
+        $this->assertEquals(80, $s2->getParam());
+        $s2->setParam(100);
+    }
+
+    public function test_closeinstance()
+    {
+        $s3 = \SingletonCase1::getInstance();
+        $this->assertEquals(100, $s3->getParam());
+        \SingletonCase1::closeInstance();
+        $s3 = \SingletonCase1::getInstance();
+        $s3->setParam([true]);
+        $this->assertEquals([true], $s3->getParam());
+    }
+
+    public function test_clone()
+    {
+        $this->expectException(\Exception::class);
+        $s3 = \SingletonCase1::getInstance();
+        $clone = clone $s3;
     }
     
-    public function test_clone(){
-        
+    public function test_unserialize()
+    {
+        $this->expectException(\Exception::class);
+        $s3 = \SingletonCase1::getInstance();
+        $serialized = serialize($s3);
+        $unserialiezd = unserialize($serialized);
     }
 }

@@ -39,7 +39,6 @@ class SingletonCase1
     
     private $param; 
     
-  
     public function setParam($param)
     {
         $this->param = $param;

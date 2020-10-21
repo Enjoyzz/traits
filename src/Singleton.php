@@ -28,7 +28,7 @@ namespace Enjoys\Traits;
 
 /**
  * Singleton
- * 
+ *
  * @author Enjoys
  */
 trait Singleton
@@ -39,37 +39,28 @@ trait Singleton
      */
     protected static $instance;
 
-    /**
-     * Disabled __construct
-     */
-    private function __construct()
+    final private function __construct()
     {
-        static::setInstance($this);
+        //Disabled __construct
     }
 
-    /**
-     * 
-     * @param static $instance
-     * @return object
-     * @throws \Exception
-     */
-    final static public function setInstance($instance)
+    final public function __unserialize(array $data)
     {
-        if ($instance instanceof static) {
-            static::$instance = $instance;
-        } else {
-            throw new \Exception(sprintf('First parameter for method `%s` should be instance of `%s`', __METHOD__, __CLASS__));
-        }
-        return static::$instance;
+        throw new \Exception('You can not deserialize a singleton.');
+    }
+
+    final public function __clone()
+    {
+        throw new \Exception('You can not clone a singleton.');
     }
 
     /**
      * Получает экземпляр класса, если его нет - создает
      * @return object
      */
-    final static public function getInstance()
+    final public static function getInstance()
     {
-        return static::$instance ?? new static;
+        return static::$instance ??= new static();
     }
 
     /**
@@ -80,16 +71,5 @@ trait Singleton
     public static function closeInstance(): void
     {
         static::$instance = null;
-        return;
-    }
-
-    final public function __wakeup()
-    {
-        throw new \Exception('You can not deserialize a singleton.');
-    }
-
-    final public function __clone()
-    {
-        throw new \Exception('You can not clone a singleton.');
     }
 }
