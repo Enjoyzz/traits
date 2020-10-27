@@ -17,7 +17,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Enjoys\\Traits\\": "src/"
+            "Enjoys\\Traits\\": "traits/",
+            "Enjoys\\Patterns\\": "patterns/"
         }
     },
     "autoload-dev": {
