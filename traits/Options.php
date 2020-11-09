@@ -43,7 +43,7 @@ trait Options
      *
      * @param string $key
      * @param mixed $value
-     * @return \self
+     * @return $this
      */
     public function setOption(string $key, $value): self
     {
@@ -60,7 +60,7 @@ trait Options
     /**
      *
      * @param string $key
-     * @param type $defaults
+     * @param mixed $defaults
      * @return mixed
      */
     public function getOption(string $key, $defaults = null)
@@ -79,7 +79,7 @@ trait Options
     /**
      *
      * @param array $options
-     * @return \self
+     * @return $this
      */
     public function setOptions(array $options = []): self
     {
