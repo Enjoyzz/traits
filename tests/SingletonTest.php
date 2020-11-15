@@ -29,6 +29,7 @@ declare(strict_types=1);
 namespace Tests\Enjoys\Traits;
 
 require_once __DIR__ . '/fixtures/SingletonCase1.php';
+require_once __DIR__ . '/fixtures/SingletonCase2.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -44,6 +45,16 @@ class SingletonTest extends TestCase
     {
         $s1 = \SingletonCase1::getInstance();
         $s2 = \SingletonCase1::getInstance();
+        $s2->setParam(12);
+        $this->assertEquals(12, $s1->getParam());
+        $s1->setParam(80);
+        $this->assertEquals(80, $s2->getParam());
+    }
+    
+    public function test_singleton1_2()
+    {
+        $s1 = \SingletonCase2::getInstance();
+        $s2 = \SingletonCase2::getInstance();
         $s2->setParam(12);
         $this->assertEquals(12, $s1->getParam());
         $s1->setParam(80);
