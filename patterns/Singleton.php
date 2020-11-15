@@ -35,43 +35,10 @@ namespace Enjoys\Patterns;
  */
 class Singleton
 {
-
-    /**
-     * @var self
-     */
-    protected static $instance;
+    use \Enjoys\Traits\Singleton;
 
     final private function __construct()
     {
         //Disabled __construct
-    }
-
-    /**
-     * Получает экземпляр класса, если его нет - создает
-     * @return object
-     */
-    final public static function getInstance()
-    {
-        return static::$instance ??= new static();
-    }
-
-    /**
-     * Закрывает существующий экземпляр класса
-     *
-     * @return void
-     */
-    public static function closeInstance(): void
-    {
-        static::$instance = null;
-    }
-
-    final public function __unserialize(array $data)
-    {
-        throw new \Exception('You can not deserialize a singleton.');
-    }
-
-    final public function __clone()
-    {
-        throw new \Exception('You can not clone a singleton.');
     }
 }
