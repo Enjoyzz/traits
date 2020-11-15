@@ -43,7 +43,8 @@ THE SOFTWARE.
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
     <coverage processUncoveredFiles="true">
         <include>
-            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">traits/</directory>
+            <directory suffix=".php">patterns/</directory>
         </include>
     </coverage>
     <testsuites>
