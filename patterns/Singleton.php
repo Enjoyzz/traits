@@ -11,18 +11,27 @@ namespace Enjoys\Patterns;
 class Singleton
 {
 
-    protected static $instance;
+    /**
+     * @var Singleton|null
+     */
+    protected static  ?Singleton $instance;
 
     final private function __construct()
     {
 
     }
 
-    final public function __unserialize(array $data)
+    /**
+     * @throws \Exception
+     */
+    final public function __unserialize(): void
     {
         throw new \Exception('You can not deserialize a singleton.');
     }
 
+    /**
+     * @throws \Exception
+     */
     final public function __clone()
     {
         throw new \Exception('You can not clone a singleton.');
@@ -30,9 +39,9 @@ class Singleton
 
 
     /**
-     * @return static
+     * @return Singleton
      */
-    final public static function getInstance()
+    final public static function getInstance(): Singleton
     {
         return static::$instance ??= new static();
     }
