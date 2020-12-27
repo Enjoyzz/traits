@@ -1,47 +1,24 @@
 <?php
 
-/*
- * The MIT License
- *
- * Copyright 2020 deadl.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 declare(strict_types=1);
 
 namespace Tests\Enjoys\Traits;
 
 require_once __DIR__ . '/fixtures/SingletonCase1.php';
 require_once __DIR__ . '/fixtures/SingletonCase2.php';
+require_once __DIR__ . '/fixtures/SingletonCase3.php';
 
+use Enjoys\Patterns\Singleton;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Description of SingletonTest
- *
- * @author deadl
+ * Class SingletonTest
+ * @package Tests\Enjoys\Traits
  */
 class SingletonTest extends TestCase
 {
 
-    public function test_singleton()
+    public function testSingleton(): void
     {
         $s1 = \SingletonCase1::getInstance();
         $s2 = \SingletonCase1::getInstance();
@@ -50,8 +27,8 @@ class SingletonTest extends TestCase
         $s1->setParam(80);
         $this->assertEquals(80, $s2->getParam());
     }
-    
-    public function test_singleton1_2()
+
+    public function testSingleton1_2(): void
     {
         $s1 = \SingletonCase2::getInstance();
         $s2 = \SingletonCase2::getInstance();
@@ -61,14 +38,14 @@ class SingletonTest extends TestCase
         $this->assertEquals(80, $s2->getParam());
     }
 
-    public function test_singleton2()
+    public function testSingleton2(): void
     {
         $s2 = \SingletonCase1::getInstance();
         $this->assertEquals(80, $s2->getParam());
         $s2->setParam(100);
     }
 
-    public function test_closeinstance()
+    public function testCloseInstance(): void
     {
         $s3 = \SingletonCase1::getInstance();
         $this->assertEquals(100, $s3->getParam());
@@ -78,18 +55,24 @@ class SingletonTest extends TestCase
         $this->assertEquals([true], $s3->getParam());
     }
 
-    public function test_clone()
+    public function testClone(): void
     {
         $this->expectException(\Exception::class);
         $s3 = \SingletonCase1::getInstance();
         $clone = clone $s3;
     }
-    
-    public function test_unserialize()
+
+    public function testUnserialize(): void
     {
         $this->expectException(\Exception::class);
         $s3 = \SingletonCase1::getInstance();
         $serialized = serialize($s3);
-        $unserialiezd = unserialize($serialized);
+        unserialize($serialized);
+    }
+
+    public function testSingleton3(): void
+    {
+        $singleton = \SingletonCase3::getInstance();
+        $this->assertInstanceOf(Singleton::class, $singleton);
     }
 }
