@@ -1,41 +1,18 @@
 <?php
 
-/*
- * The MIT License
- *
- * Copyright 2020 Enjoys.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+declare(strict_types=1);
 
 namespace Enjoys\Traits;
 
 /**
- *
- * @author Enjoys
+ * Trait Options
+ * @package Enjoys\Traits
  */
 trait Options
 {
-
     /**
      *
-     * @var array
+     * @var array<mixed>
      */
     protected array $options = [];
 
@@ -47,12 +24,12 @@ trait Options
      */
     public function setOption(string $key, $value): self
     {
-        $method = 'set'.ucfirst($key);
-        if(method_exists($this, $method)){
+        $method = 'set' . ucfirst($key);
+        if (method_exists($this, $method)) {
             $this->$method($value);
             return $this;
         }
-        
+
         $this->options[$key] = $value;
         return $this;
     }
@@ -65,11 +42,11 @@ trait Options
      */
     public function getOption(string $key, $defaults = null)
     {
-        $method = 'get'.ucfirst($key);
-        if(method_exists($this, $method)){
+        $method = 'get' . ucfirst($key);
+        if (method_exists($this, $method)) {
             return $this->$method($defaults);
         }
-        
+
         if (isset($this->options[$key])) {
             return $this->options[$key];
         }
@@ -78,20 +55,20 @@ trait Options
 
     /**
      *
-     * @param array $options
+     * @param array<mixed> $options
      * @return $this
      */
     public function setOptions(array $options = []): self
     {
         foreach ($options as $key => $value) {
-            $this->setOption((string) $key, $value);
+            $this->setOption((string)$key, $value);
         }
         return $this;
     }
 
     /**
      *
-     * @return array
+     * @return array<mixed>
      */
     public function getOptions(): array
     {
