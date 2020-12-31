@@ -20,12 +20,14 @@ trait Options
      *
      * @param string $key
      * @param mixed $value
+     * @param bool $useInternalMethods Если есть внутренние методы установки $this->setKey()  использовать их, если false игнорировать
      * @return $this
+     * @since 1.3.0 добавлен флаг $useInternalMethods
      */
-    public function setOption(string $key, $value): self
+    public function setOption(string $key, $value, bool $useInternalMethods = true): self
     {
         $method = 'set' . ucfirst($key);
-        if (method_exists($this, $method)) {
+        if ($useInternalMethods === true && method_exists($this, $method)) {
             $this->$method($value);
             return $this;
         }
@@ -38,12 +40,14 @@ trait Options
      *
      * @param string $key
      * @param mixed $defaults
+     * @param bool $useInternalMethods Если есть внутренние методы получения $this->getKey()  использовать их, если false игнорировать
      * @return mixed
+     * @since 1.3.0 добавлен флаг $useInternalMethods
      */
-    public function getOption(string $key, $defaults = null)
+    public function getOption(string $key, $defaults = null, bool $useInternalMethods = true)
     {
         $method = 'get' . ucfirst($key);
-        if (method_exists($this, $method)) {
+        if ($useInternalMethods === true && method_exists($this, $method)) {
             return $this->$method($defaults);
         }
 
@@ -56,12 +60,14 @@ trait Options
     /**
      *
      * @param array<mixed> $options
+     * @param bool $useInternalMethods Если есть внутренние методы установки $this->setKey()  использовать их, если false игнорировать
      * @return $this
+     * @since 1.3.0 добавлен флаг $useInternalMethods
      */
-    public function setOptions(array $options = []): self
+    public function setOptions(array $options = [], bool $useInternalMethods = true): self
     {
         foreach ($options as $key => $value) {
-            $this->setOption((string)$key, $value);
+            $this->setOption((string)$key, $value, $useInternalMethods);
         }
         return $this;
     }
